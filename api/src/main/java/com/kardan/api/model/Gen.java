@@ -13,7 +13,7 @@ public class Gen {
     @GeneratedValue(strategy  = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="generation")
+    @Column(name="name")
     private String generation;
 
     @ManyToOne

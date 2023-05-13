@@ -15,11 +15,11 @@ public class Engine {
     @GeneratedValue(strategy  = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="size")
+    @Column(name="value")
     private Double size;
 
-    @Column(name="fuel")
-    private String fuel;
+//    @Column(name="fuel")
+//    private String fuel;
 
     @ManyToOne
     @JoinColumn(name="gen_id", referencedColumnName = "id")

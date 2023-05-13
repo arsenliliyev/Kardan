@@ -23,6 +23,6 @@ public class Unit {
     private double price;
 
     @ManyToOne
-    @JoinColumn(name="manufactuere_id", referencedColumnName = "id")
+    @JoinColumn(name="manufacturer_id", referencedColumnName = "id")
     private Manufacturer manufacturer;
 }

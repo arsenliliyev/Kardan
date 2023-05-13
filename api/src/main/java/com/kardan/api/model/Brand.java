@@ -18,9 +18,9 @@ public class Brand {
     @Column(name = "name")
     private String brandName;
 
-    private LocalDateTime created_date;
+   // private LocalDateTime created_date;
 
-    private Integer state;
+  //  private Integer state;
 
     @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY)
     @JsonIgnore
