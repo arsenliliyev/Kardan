@@ -1,10 +1,7 @@
 package com.kardan.api.controller;
 
 import com.kardan.api.dto.EngineCategoryDTO;
-import com.kardan.api.model.Brand;
-import com.kardan.api.model.Gen;
-import com.kardan.api.model.Model;
-import com.kardan.api.model.Unit;
+import com.kardan.api.model.*;
 import com.kardan.api.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,31 +34,43 @@ public class GuestController {
         this.partService = partService;
     }
 
+
+
     @GetMapping("/brands")
     public List<Brand> getBrands() {
         return brandService.findAll();
     }
 
     @GetMapping("/brands/model")
-    public List<Model> getModels(@RequestParam("id") int id) {
+    public List<Model> getModels(@RequestParam("brandId") int id) {
         return modelService.findByBrandId(id);
     }
 
     @GetMapping("/brands/model/gen")
-    public List<Gen> getGens(@RequestParam("id") int id) {
+    public List<Gen> getGens(@RequestParam("modelId") int id) {
         return genServise.findByModelId(id);
     }
 
     @GetMapping("/brands/model/gen/engine")
-    public EngineCategoryDTO getEngines(@RequestParam("id") int id) {
+    public EngineCategoryDTO getEngines(@RequestParam("genId") int id) {
         EngineCategoryDTO engineCategoryDTO=new EngineCategoryDTO();
         engineCategoryDTO.engines = engineService.findByGen(id);
         engineCategoryDTO.categories = categoryService.findSubCategories();
         return engineCategoryDTO;
     }
 
+    @GetMapping("/test")
+    public int test(@RequestParam("categoryId") int category_id, @RequestParam("engineId") int engine_id) {
+        return partService.findPartid(category_id, engine_id);
+    }
+
+    @GetMapping("/units")
+    public List<Unit> g(@RequestParam("partId") int partId){
+        return unitService.findUnitByPartId(545);
+    }
+
     @GetMapping("/brands/model/gen/engine/units")
-    public List<Unit> getUnits(@RequestParam("id") int category_id, @RequestParam("id") int engine_id) {
+    public List<Unit> getUnits(@RequestParam("categoryId") int category_id, @RequestParam("engineId") int engine_id) {
         return unitService.findUnitByPartId(partService.findPartid(category_id, engine_id));
     }
 }

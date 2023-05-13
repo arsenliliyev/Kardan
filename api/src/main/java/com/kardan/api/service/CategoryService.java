@@ -22,6 +22,6 @@ public class CategoryService {
 //    }
 
     public List<Category> findSubCategories() {
-        return categoryRepository.findByParentIsNull();
+        return categoryRepository.findByParentIsNotNull();
     }
 }

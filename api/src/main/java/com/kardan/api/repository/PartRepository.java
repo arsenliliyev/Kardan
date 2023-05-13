@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface PartRepository extends JpaRepository<Part,Integer> {
-    Part findPartByCategory_IdAndEngine_Id(int categroy_id, int engine_id);
+    Part findPartByCategory_IdAndEngine_Id(int categoryId, int engineId);
 }

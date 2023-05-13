@@ -13,13 +13,13 @@ import java.util.*;
 public class UnitService {
     private final UnitRepository unitRepository;
 
-    @Autowired
+
     public UnitService(UnitRepository unitRepository) {
         this.unitRepository = unitRepository;
     }
 
     public List<Unit> findUnitByPartId(int part_id){
-        return unitRepository.findUnitByPartId(part_id);
+        return unitRepository.findUnitsByPartId(part_id);
     }
 
     @Transactional

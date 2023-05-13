@@ -11,5 +11,6 @@ import java.util.Optional;
 public interface CategoryRepository extends JpaRepository<Category,Integer>{
 
  //   List<Category> findAll();
-    List<Category> findByParentIsNull();
+    List<Category> findByParentIsNotNull();
+
 }
