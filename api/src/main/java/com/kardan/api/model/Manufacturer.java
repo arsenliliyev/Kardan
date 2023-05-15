@@ -1,5 +1,6 @@
 package com.kardan.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,6 +17,7 @@ public class Manufacturer {
     @Column(name="manufacturer_name")
     private String manufacturerName;
 
+    @JsonIgnore
     @OneToMany(mappedBy="manufacturer")
     private List<Unit> partsManufacturer;
 }

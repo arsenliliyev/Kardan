@@ -1,5 +1,6 @@
 package com.kardan.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,6 +20,7 @@ public class Shop {
     @Column(name="password")
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "shop")
     List<Unit> units;
 }
