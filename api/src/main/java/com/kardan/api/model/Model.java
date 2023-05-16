@@ -1,5 +1,6 @@
 package com.kardan.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,6 +21,7 @@ public class Model {
     @JoinColumn(name="brand_id", referencedColumnName = "id")
     private Brand brand;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "model")
     private List<Gen> gens;
 }

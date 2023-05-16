@@ -1,7 +1,10 @@
 package com.kardan.api.controller;
 
 import com.kardan.api.dto.EngineCategoryDTO;
-import com.kardan.api.model.*;
+import com.kardan.api.model.Brand;
+import com.kardan.api.model.Gen;
+import com.kardan.api.model.Model;
+import com.kardan.api.model.Unit;
 import com.kardan.api.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +14,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/kardan")
 public class GuestController {
-
     private final BrandService brandService;
     private final ModelService modelService;
     private final GenServise genServise;
@@ -19,7 +21,6 @@ public class GuestController {
     private final CategoryService categoryService;
     private final UnitService unitService;
     private final PartService partService;
-
 
     public GuestController(BrandService brandService, ModelService modelService, GenServise genServise, EngineService engineService,
                            CategoryService categoryService, UnitService unitService, PartService partService) {
@@ -31,8 +32,6 @@ public class GuestController {
         this.unitService = unitService;
         this.partService = partService;
     }
-
-
 
     @GetMapping("/brands")
     public List<Brand> getBrands() {
@@ -55,16 +54,6 @@ public class GuestController {
         engineCategoryDTO.engines = engineService.findByGen(id);
         engineCategoryDTO.categories = categoryService.findSubCategories();
         return engineCategoryDTO;
-    }
-
-    @GetMapping("/test")
-    public int test(@RequestParam("categoryId") int category_id, @RequestParam("engineId") int engine_id) {
-        return partService.findPartid(category_id, engine_id);
-    }
-
-    @GetMapping("/units")
-    public List<Unit> g(@RequestParam("partId") int partId){
-        return unitService.findUnitByPartId(545);
     }
 
     @GetMapping("/brands/model/gen/engine/units")

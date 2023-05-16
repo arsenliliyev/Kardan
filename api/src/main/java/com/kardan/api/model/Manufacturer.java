@@ -14,7 +14,7 @@ public class Manufacturer {
     @GeneratedValue(strategy  = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="manufacturer_name")
+    @Column(name="name")
     private String manufacturerName;
 
     @JsonIgnore

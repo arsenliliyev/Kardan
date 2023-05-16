@@ -22,7 +22,7 @@ public class Brand {
 
   //  private Integer state;
 
+  @JsonIgnore
     @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY)
-    @JsonIgnore
     private List<Model> models;
 }

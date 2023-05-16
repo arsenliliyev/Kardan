@@ -27,8 +27,8 @@ public class Category {
 
     private List<Category> children = new ArrayList<Category>();
 
-    @OneToMany(mappedBy = "category")
     @JsonIgnore
+    @OneToMany(mappedBy = "category")
     private List<Part> partsCategory;
 }
 

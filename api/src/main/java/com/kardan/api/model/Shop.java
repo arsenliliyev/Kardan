@@ -14,9 +14,10 @@ public class Shop {
     @GeneratedValue(strategy  = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="shop_name")
+    @Column(name="name")
     private String shopName;
 
+    @JsonIgnore
     @Column(name="password")
     private String password;
 
