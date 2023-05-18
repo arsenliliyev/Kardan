@@ -7,6 +7,8 @@ import com.kardan.api.model.Model;
 import com.kardan.api.model.Unit;
 import com.kardan.api.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,11 +52,32 @@ public class GuestController {
 
     @GetMapping("/brands/model/gen/engine")
     public EngineCategoryDTO getEngines(@RequestParam("genId") int id) {
-        EngineCategoryDTO engineCategoryDTO=new EngineCategoryDTO();
+        EngineCategoryDTO engineCategoryDTO = new EngineCategoryDTO();
         engineCategoryDTO.engines = engineService.findByGen(id);
         engineCategoryDTO.categories = categoryService.findSubCategories();
         return engineCategoryDTO;
     }
+
+    // engineId + categoryId =partID, shopId, manufecturerId, int price
+    @PostMapping
+    public ResponseEntity<HttpStatus> create(@RequestBody Unit unit) {
+        unitService.save(unit);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    @PostMapping("/{unitId}")
+    public ResponseEntity<HttpStatus> update(@RequestBody Unit unit, @PathVariable("unitId") int id){
+        unitService.update(id, unit);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+
+    @PostMapping("/sold/{unitId}")
+    public ResponseEntity<HttpStatus> delete(@PathVariable("unitId") int id){
+        unitService.delete(id);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
 
     @GetMapping("/brands/model/gen/engine/units")
     public List<Unit> getUnits(@RequestParam("categoryId") int category_id, @RequestParam("engineId") int engine_id) {
