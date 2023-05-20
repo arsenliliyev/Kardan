@@ -10,17 +10,14 @@ import java.util.List;
 @Entity
 @Table(schema = "kardanapp", name="brands")
 @Data
-public class Brand {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Brand extends CommonEntity{
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private int id;
 
     @Column(name = "name")
-    private String brandName;
+    private String name;
 
-   // private LocalDateTime created_date;
-
-  //  private Integer state;
 
   @JsonIgnore
     @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY)

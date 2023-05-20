@@ -11,4 +11,5 @@ import java.util.List;
 public interface UnitRepository extends JpaRepository<Unit,Integer> {
     List<Unit> findUnitByPartId(int id);
     List<Unit> findUnitsByPartId(int id);
+    Unit findUnitById(int id);
 }

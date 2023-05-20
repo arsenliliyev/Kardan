@@ -8,13 +8,13 @@ import java.util.List;
 @Entity
 @Table(schema = "kardanapp", name="gens")
 @Data
-public class Gen {
-    @Id
-    @GeneratedValue(strategy  = GenerationType.IDENTITY)
-    private int id;
+public class Gen extends CommonEntity{
+//    @Id
+//    @GeneratedValue(strategy  = GenerationType.IDENTITY)
+//    private int id;
 
     @Column(name="name")
-    private String generation;
+    private String name;
 
     @ManyToOne
     @JoinColumn(name="model_id", referencedColumnName = "id")

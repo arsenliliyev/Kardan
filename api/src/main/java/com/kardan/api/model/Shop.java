@@ -9,10 +9,10 @@ import java.util.List;
 @Entity
 @Table(schema = "kardanapp", name="shops")
 @Data
-public class Shop {
-    @Id
-    @GeneratedValue(strategy  = GenerationType.IDENTITY)
-    private int id;
+public class Shop extends CommonEntity{
+//    @Id
+//    @GeneratedValue(strategy  = GenerationType.IDENTITY)
+//    private int id;
 
     @Column(name="name")
     private String shopName;

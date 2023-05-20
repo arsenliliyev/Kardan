@@ -10,16 +10,14 @@ import java.util.List;
 @Entity
 @Table(schema = "kardanapp", name ="engines")
 @Data
-public class Engine {
-    @Id
-    @GeneratedValue(strategy  = GenerationType.IDENTITY)
-    private int id;
+public class Engine extends CommonEntity{
+//    @Id
+//    @GeneratedValue(strategy  = GenerationType.IDENTITY)
+//    private int id;
 
     @Column(name="value")
     private Double size;
 
-//    @Column(name="fuel")
-//    private String fuel;
 
     @ManyToOne
     @JoinColumn(name="gen_id", referencedColumnName = "id")

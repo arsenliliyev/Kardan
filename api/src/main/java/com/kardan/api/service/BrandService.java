@@ -13,7 +13,6 @@ import java.util.List;
 public class BrandService {
     private final BrandRepository brandRepository;
 
-
     public BrandService(BrandRepository brandRepository) {
         this.brandRepository = brandRepository;
     }
@@ -21,6 +20,4 @@ public class BrandService {
     public List<Brand> findAll(){
         return brandRepository.findAll();
     }
-
-
 }

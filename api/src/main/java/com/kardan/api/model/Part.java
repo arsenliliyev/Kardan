@@ -9,10 +9,10 @@ import java.util.List;
 @Entity
 @Table(schema = "kardanapp", name="parts")
 @Data
-public class Part {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Part extends CommonEntity{
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private int id;
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")

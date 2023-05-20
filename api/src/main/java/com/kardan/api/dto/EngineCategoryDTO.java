@@ -11,6 +11,6 @@ import java.util.List;
 @Data
 public class EngineCategoryDTO {
 
-    public List<Engine> engines;
-    public List<Category> categories;
+    public List<EngineDTO> engines;
+    public List<CategoryDTO> categories;
 }
