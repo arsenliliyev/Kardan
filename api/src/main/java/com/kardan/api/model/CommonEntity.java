@@ -21,4 +21,6 @@ public class CommonEntity {
 
     @Column(name="state")
     private boolean state;
+
+
 }
