@@ -82,13 +82,13 @@ public class GuestController {
 
 
     @GetMapping("/brands/model/gen/engine/units")
-    public List<NameDTO> getUnits(@RequestParam("categoryId") int category_id, @RequestParam("engineId") int engine_id) {
-        return unitService.findUnitByPartId(partService.findPartid(category_id, engine_id)).stream().map(this::converterName).collect((Collectors.toList()));
+    public List<UnitDTO> getUnits(@RequestParam("categoryId") int category_id, @RequestParam("engineId") int engine_id) {
+        return unitService.findUnitByPartId(partService.findPartid(category_id, engine_id)).stream().map(this::convertUnit).collect((Collectors.toList()));
     }
 
-    private Unit converter(UnitDTO unitDTO) {
-        return modelMapper.map(unitDTO, Unit.class);
-    }
+    private UnitDTO convertUnit(Unit unit) { return  modelMapper.map(unit, UnitDTO.class);}
+
+    private Unit converter(UnitDTO unitDTO) {return modelMapper.map(unitDTO, Unit.class);}
 
     private NameDTO converterName(CommonEntity optional){
         return modelMapper.map( optional ,NameDTO.class);
@@ -101,6 +101,5 @@ public class GuestController {
     private CategoryDTO convertCategory(Category category){
         return modelMapper.map(category, CategoryDTO.class);
     }
-
 
 }
