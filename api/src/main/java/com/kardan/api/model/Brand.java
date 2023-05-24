@@ -3,17 +3,18 @@ package com.kardan.api.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 @Entity
 @Table(schema = "kardanapp", name="brands")
 @Data
+@Where(clause = "state=true")
 public class Brand extends CommonEntity{
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private int id;
+
 
     @Column(name = "name")
     private String name;

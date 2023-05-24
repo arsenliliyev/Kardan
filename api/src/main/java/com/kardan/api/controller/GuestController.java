@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/kardan")
 public class GuestController {
+
     private final BrandService brandService;
     private final ModelService modelService;
     private final GenServise genServise;

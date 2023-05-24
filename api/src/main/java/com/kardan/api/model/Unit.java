@@ -2,10 +2,12 @@ package com.kardan.api.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(schema = "kardanapp", name="units")
 @Data
+@Where(clause = "state=true")
 public class Unit extends CommonEntity{
 
 

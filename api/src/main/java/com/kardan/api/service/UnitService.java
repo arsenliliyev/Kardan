@@ -22,8 +22,7 @@ public class UnitService {
 
     public List<Unit> findUnitByPartId(int part_id) {
         List<Unit> all = unitRepository.findUnitsByPartId(part_id);
-       return all.stream().filter(Unit::isState).collect(Collectors.toList());
-       // return all;
+       return all; //all.stream().filter(Unit::isState).collect(Collectors.toList());
     }
 
 
