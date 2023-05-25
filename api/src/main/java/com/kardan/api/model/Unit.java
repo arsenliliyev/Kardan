@@ -7,9 +7,8 @@ import org.hibernate.annotations.Where;
 @Entity
 @Table(schema = "kardanapp", name="units")
 @Data
-@Where(clause = "state=true")
+//@Where(clause = "state=true")
 public class Unit extends CommonEntity{
-
 
     @ManyToOne
     @JoinColumn(name="part_id", referencedColumnName = "id")

@@ -6,15 +6,21 @@ import com.kardan.api.model.Shop;
 import lombok.Builder;
 import lombok.Data;
 
-@Builder
+//@Builder
 @Data
 public class UnitDTO {
 
-    private Part part;
+//    private Part part;
+//
+//    private Shop shop;
+//
+//    private Manufacturer manufacturer;
 
-    private Shop shop;
+    private PartDTO partDTO;
+
+    private ManufacturerDTO manufacturerDTO;
+
+    private ShopDTO shopDTO;
 
     private double price;
-
-    private Manufacturer manufacturer;
 }

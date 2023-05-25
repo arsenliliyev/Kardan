@@ -38,18 +38,18 @@ public class GuestController {
     }
 
     @GetMapping("/brands")
-    public List<NameDTO> getBrands() {
-        return brandService.findAll().stream().map(this::converterName).collect((Collectors.toList()));
+    public List<BrandDTO> getBrands() {
+        return brandService.findAll().stream().map(this::convertBrand).collect((Collectors.toList()));
     }
 
     @GetMapping("/brands/model")
-    public List<NameDTO> getModels(@RequestParam("brandId") int id) {
-        return modelService.findByBrandId(id).stream().map(this::converterName).collect((Collectors.toList()));
+    public List<ModelDTO> getModels(@RequestParam("brandId") int id) {
+        return modelService.findByBrandId(id).stream().map(this::convertModel).collect((Collectors.toList()));
     }
 
     @GetMapping("/brands/model/gen")
-    public List<NameDTO> getGens(@RequestParam("modelId") int id) {
-        return genServise.findByModelId(id).stream().map(this::converterName).collect((Collectors.toList()));
+    public List<GenDTO> getGens(@RequestParam("modelId") int id) {
+        return genServise.findByModelId(id).stream().map(this::convertGen).collect((Collectors.toList()));
     }
 
     @GetMapping("/brands/model/gen/engine")
@@ -87,13 +87,17 @@ public class GuestController {
         return unitService.findUnitByPartId(partService.findPartid(category_id, engine_id)).stream().map(this::convertUnit).collect((Collectors.toList()));
     }
 
+
     private UnitDTO convertUnit(Unit unit) { return  modelMapper.map(unit, UnitDTO.class);}
 
-    private Unit converter(UnitDTO unitDTO) {return modelMapper.map(unitDTO, Unit.class);}
+    private Unit converter(UnitDTO unitDTO) { return modelMapper.map(unitDTO, Unit.class);}
 
-    private NameDTO converterName(CommonEntity optional){
-        return modelMapper.map( optional ,NameDTO.class);
+  //  private NameDTO converterName(CommonEntity optional){return modelMapper.map( optional ,NameDTO.class);}
+    private BrandDTO convertBrand(CommonEntity optional){
+        return modelMapper.map( optional ,BrandDTO.class);
     }
+    private ModelDTO convertModel(CommonEntity optional) {return modelMapper.map( optional ,ModelDTO.class); }
+    private GenDTO convertGen(CommonEntity optional){return modelMapper.map( optional ,GenDTO.class); }
 
     private EngineDTO convertEngine(Engine engine){
         return modelMapper.map(engine, EngineDTO.class);

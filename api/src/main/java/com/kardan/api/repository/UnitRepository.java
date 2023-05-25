@@ -9,7 +9,8 @@ import java.util.List;
 
 @Repository
 public interface UnitRepository extends JpaRepository<Unit,Integer> {
-    List<Unit> findUnitByPartId(int id);
-    List<Unit> findUnitsByPartId(int id);
+  //  List<Unit> findUnitByPartId(int id);
+
+    List<Unit> findUnitsByPartIdAndState(int id, boolean state);
     Unit findUnitById(int id);
 }
