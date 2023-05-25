@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -84,26 +85,80 @@ public class GuestController {
 
     @GetMapping("/brands/model/gen/engine/units")
     public List<UnitDTO> getUnits(@RequestParam("categoryId") int category_id, @RequestParam("engineId") int engine_id) {
-        return unitService.findUnitByPartId(partService.findPartid(category_id, engine_id)).stream().map(this::convertUnit).collect((Collectors.toList()));
+
+        List<Unit> foundedUnits = unitService.findUnitByPartId(partService.findPartid(category_id, engine_id));
+
+        return DTOterminator(foundedUnits);
+        // return unitService.findUnitByPartId(partService.findPartid(category_id, engine_id)).stream().map(this::convertUnit).collect((Collectors.toList()));
     }
 
 
-    private UnitDTO convertUnit(Unit unit) { return  modelMapper.map(unit, UnitDTO.class);}
+    private List<UnitDTO> DTOterminator(List<Unit> units) {
 
-    private Unit converter(UnitDTO unitDTO) { return modelMapper.map(unitDTO, Unit.class);}
+        List<UnitDTO> unitDTOS = new ArrayList<>();
 
-  //  private NameDTO converterName(CommonEntity optional){return modelMapper.map( optional ,NameDTO.class);}
-    private BrandDTO convertBrand(CommonEntity optional){
-        return modelMapper.map( optional ,BrandDTO.class);
+        for (Unit unit : units) {
+            Part part = unit.getPart();
+            Category category = part.getCategory();
+            Shop shop = unit.getShop();
+            Manufacturer manufacturer = unit.getManufacturer();
+
+            UnitDTO unitDTO = modelMapper.map(unit, UnitDTO.class);
+
+            PartDTO partDTO=convertPart(part);
+            CategoryShortDTO categoryShortDTO=convertCategoryShort(category);
+            partDTO.setCategoryShortDTO(categoryShortDTO);
+            unitDTO.setPartDTO(partDTO);
+
+           // unitDTO.setPartDTO(convertPart(part).setCategoryShortDTO(convertCategoryShort(category)));
+            unitDTO.setShopDTO(convertShop(shop));
+            unitDTO.setManufacturerDTO(convertManufacturer(manufacturer));
+
+            unitDTOS.add(unitDTO);
+        }
+        return unitDTOS;
     }
-    private ModelDTO convertModel(CommonEntity optional) {return modelMapper.map( optional ,ModelDTO.class); }
-    private GenDTO convertGen(CommonEntity optional){return modelMapper.map( optional ,GenDTO.class); }
 
-    private EngineDTO convertEngine(Engine engine){
+    private CategoryShortDTO convertCategoryShort(Category category) {
+        return modelMapper.map(category, CategoryShortDTO.class);
+    }
+
+    private PartDTO convertPart(Part part) {
+        return modelMapper.map(part, PartDTO.class);
+    }
+
+    private ShopDTO convertShop(Shop shop) {
+        return modelMapper.map(shop, ShopDTO.class);
+    }
+
+    private ManufacturerDTO convertManufacturer(Manufacturer manufacturer) {
+        return modelMapper.map(manufacturer, ManufacturerDTO.class);
+    }
+
+
+    // private UnitDTO convertUnit(Unit unit) { return  modelMapper.map(unit, UnitDTO.class);}
+
+    private Unit converter(UnitDTO unitDTO) {
+        return modelMapper.map(unitDTO, Unit.class);
+    }
+
+    private BrandDTO convertBrand(CommonEntity optional) {
+        return modelMapper.map(optional, BrandDTO.class);
+    }
+
+    private ModelDTO convertModel(CommonEntity optional) {
+        return modelMapper.map(optional, ModelDTO.class);
+    }
+
+    private GenDTO convertGen(CommonEntity optional) {
+        return modelMapper.map(optional, GenDTO.class);
+    }
+
+    private EngineDTO convertEngine(Engine engine) {
         return modelMapper.map(engine, EngineDTO.class);
     }
 
-    private CategoryDTO convertCategory(Category category){
+    private CategoryDTO convertCategory(Category category) {
         return modelMapper.map(category, CategoryDTO.class);
     }
 
