@@ -64,7 +64,7 @@ public class GuestController {
 
     @PostMapping
     public ResponseEntity<HttpStatus> create(@RequestBody UnitDTO unitDTO) {
-        unitService.save(converter(unitDTO));
+        unitService.save(convertUnitDTOtoUnit(unitDTO));
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
@@ -117,6 +117,44 @@ public class GuestController {
             unitDTOS.add(unitDTO);
         }
         return unitDTOS;
+    }
+
+    private Unit convertUnitDTOtoUnit(UnitDTO unitDTO){
+        PartDTO partDTO=unitDTO.getPartDTO();
+
+       // CategoryShortDTO categoryShortDTO=partDTO.getCategoryShortDTO();
+        ShopDTO shopDTO=unitDTO.getShopDTO();
+        //System.out.println(shopDTO);
+        ManufacturerDTO manufacturerDTO=unitDTO.getManufacturerDTO();
+
+        double price=unitDTO.getPrice();
+
+        Unit unit= new Unit();
+
+      //  Unit unit=converter(unitDTO);
+
+        Part part = convertPartDTOtoPart(partDTO);
+      //  part.setCategory(convertCaregoryShortDTOtoCategory(categoryShortDTO));
+        unit.setPart(part);
+        unit.setShop(convertShopDTOtoShop(shopDTO));
+        unit.setManufacturer(convertManufacturerDTOtoManufacturer(manufacturerDTO));
+        return unit;
+    }
+
+    private Category convertCaregoryShortDTOtoCategory(CategoryShortDTO categoryShortDTO){
+        return modelMapper.map(categoryShortDTO, Category.class);
+    }
+
+    private Part convertPartDTOtoPart(PartDTO partDTO){
+        return modelMapper.map(partDTO, Part.class);
+    }
+
+    private Shop convertShopDTOtoShop (ShopDTO shopDTO){
+        return modelMapper.map(shopDTO, Shop.class);
+    }
+
+    private Manufacturer convertManufacturerDTOtoManufacturer(ManufacturerDTO manufacturerDTO){
+        return modelMapper.map(manufacturerDTO, Manufacturer.class);
     }
 
     private CategoryShortDTO convertCategoryShort(Category category) {
