@@ -4,5 +4,6 @@ import lombok.Data;
 
 @Data
 public class PartDTO {
-    private CategoryShortDTO categoryShortDTO;
+    private int categoryId;
+    private int engineId;
 }

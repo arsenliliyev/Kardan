@@ -99,18 +99,18 @@ public class GuestController {
 
         for (Unit unit : units) {
             Part part = unit.getPart();
-            Category category = part.getCategory();
+            // Category category = part.getCategory();
             Shop shop = unit.getShop();
             Manufacturer manufacturer = unit.getManufacturer();
 
             UnitDTO unitDTO = modelMapper.map(unit, UnitDTO.class);
 
-            PartDTO partDTO=convertPart(part);
-            CategoryShortDTO categoryShortDTO=convertCategoryShort(category);
-            partDTO.setCategoryShortDTO(categoryShortDTO);
+            PartDTO partDTO = convertPart(part);
+            //CategoryShortDTO categoryShortDTO=convertCategoryShort(category);
+            // partDTO.setCategoryShortDTO(categoryShortDTO);
             unitDTO.setPartDTO(partDTO);
 
-           // unitDTO.setPartDTO(convertPart(part).setCategoryShortDTO(convertCategoryShort(category)));
+            // unitDTO.setPartDTO(convertPart(part).setCategoryShortDTO(convertCategoryShort(category)));
             unitDTO.setShopDTO(convertShop(shop));
             unitDTO.setManufacturerDTO(convertManufacturer(manufacturer));
 
@@ -119,41 +119,49 @@ public class GuestController {
         return unitDTOS;
     }
 
-    private Unit convertUnitDTOtoUnit(UnitDTO unitDTO){
-        PartDTO partDTO=unitDTO.getPartDTO();
+    private Unit convertUnitDTOtoUnit(UnitDTO unitDTO) {
 
-       // CategoryShortDTO categoryShortDTO=partDTO.getCategoryShortDTO();
-        ShopDTO shopDTO=unitDTO.getShopDTO();
+
+        PartDTO partDTO = unitDTO.getPartDTO();
+
+        int categoryId = partDTO.getCategoryId();
+        int engineId = partDTO.getEngineId();
+
+        Part part= partService.findPart(engineId,categoryId);
+
+        // CategoryShortDTO categoryShortDTO=partDTO.getCategoryShortDTO();
+        ShopDTO shopDTO = unitDTO.getShopDTO();
         //System.out.println(shopDTO);
-        ManufacturerDTO manufacturerDTO=unitDTO.getManufacturerDTO();
+        ManufacturerDTO manufacturerDTO = unitDTO.getManufacturerDTO();
 
-        double price=unitDTO.getPrice();
+        double price = unitDTO.getPrice();
 
-        Unit unit= new Unit();
+        Unit unit = new Unit();
 
-      //  Unit unit=converter(unitDTO);
+        //  Unit unit=converter(unitDTO);
 
-        Part part = convertPartDTOtoPart(partDTO);
-      //  part.setCategory(convertCaregoryShortDTOtoCategory(categoryShortDTO));
+     //   Part part = modelMapper.map(partDTO, Part.class);        //convertPartDTOtoPart(partDTO);
+        //  part.setCategory(convertCaregoryShortDTOtoCategory(categoryShortDTO));
         unit.setPart(part);
         unit.setShop(convertShopDTOtoShop(shopDTO));
         unit.setManufacturer(convertManufacturerDTOtoManufacturer(manufacturerDTO));
+        unit.setPrice(price);
         return unit;
     }
 
-    private Category convertCaregoryShortDTOtoCategory(CategoryShortDTO categoryShortDTO){
+    private Category convertCaregoryShortDTOtoCategory(CategoryShortDTO categoryShortDTO) {
         return modelMapper.map(categoryShortDTO, Category.class);
     }
 
-    private Part convertPartDTOtoPart(PartDTO partDTO){
+    private Part convertPartDTOtoPart(PartDTO partDTO) {
         return modelMapper.map(partDTO, Part.class);
     }
 
-    private Shop convertShopDTOtoShop (ShopDTO shopDTO){
+    private Shop convertShopDTOtoShop(ShopDTO shopDTO) {
         return modelMapper.map(shopDTO, Shop.class);
     }
 
-    private Manufacturer convertManufacturerDTOtoManufacturer(ManufacturerDTO manufacturerDTO){
+    private Manufacturer convertManufacturerDTOtoManufacturer(ManufacturerDTO manufacturerDTO) {
         return modelMapper.map(manufacturerDTO, Manufacturer.class);
     }
 

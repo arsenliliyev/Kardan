@@ -26,25 +26,9 @@ public class PartService {
     }
 
 
-
-    public Part selectPart(int id) {
-        Optional<Part> selectedPart = partRepository.findById(id);
-        return selectedPart.orElse(null);
+    public Part findPart(int engineId,int categoryid){
+        return partRepository.findPartByCategory_IdAndEngine_Id(engineId,categoryid);
     }
 
-    @Transactional
-    public void save(Part part) {
-        partRepository.save(part);
-    }
 
-    @Transactional
-    public void update(int id, Part updatedPart) {
-        updatedPart.setId(id);
-        partRepository.save(updatedPart);
-    }
-
-    @Transactional
-    public void delete(int id) {
-        partRepository.deleteById(id);
-    }
 }

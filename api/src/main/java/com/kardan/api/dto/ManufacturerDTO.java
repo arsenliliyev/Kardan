@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class ManufacturerDTO {
-    private String manufacturer;
+    private int manufacturerId;
 }
