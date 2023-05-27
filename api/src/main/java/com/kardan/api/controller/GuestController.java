@@ -7,8 +7,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -71,7 +69,7 @@ public class GuestController {
 
     @PostMapping("/{unitId}")
     public ResponseEntity<HttpStatus> update(@RequestBody UnitDTO unitDTO, @PathVariable("unitId") int id) {
-        unitService.update(id, converter(unitDTO));
+        unitService.update(id, convertUnitDTOtoUnit(unitDTO));
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
@@ -88,29 +86,24 @@ public class GuestController {
 
         List<Unit> foundedUnits = unitService.findUnitByPartId(partService.findPartid(category_id, engine_id));
 
-        return DTOterminator(foundedUnits);
-        // return unitService.findUnitByPartId(partService.findPartid(category_id, engine_id)).stream().map(this::convertUnit).collect((Collectors.toList()));
+        return convertUnitToUnitDTO(foundedUnits);
     }
 
 
-    private List<UnitDTO> DTOterminator(List<Unit> units) {
+    private List<UnitDTO> convertUnitToUnitDTO(List<Unit> units) {
 
         List<UnitDTO> unitDTOS = new ArrayList<>();
 
         for (Unit unit : units) {
             Part part = unit.getPart();
-            // Category category = part.getCategory();
+
             Shop shop = unit.getShop();
+
             Manufacturer manufacturer = unit.getManufacturer();
 
             UnitDTO unitDTO = modelMapper.map(unit, UnitDTO.class);
 
-            PartDTO partDTO = convertPart(part);
-            //CategoryShortDTO categoryShortDTO=convertCategoryShort(category);
-            // partDTO.setCategoryShortDTO(categoryShortDTO);
-            unitDTO.setPartDTO(partDTO);
-
-            // unitDTO.setPartDTO(convertPart(part).setCategoryShortDTO(convertCategoryShort(category)));
+            unitDTO.setPartDTO(convertPart(part));
             unitDTO.setShopDTO(convertShop(shop));
             unitDTO.setManufacturerDTO(convertManufacturer(manufacturer));
 
@@ -138,24 +131,12 @@ public class GuestController {
         return unit;
     }
 
-    private Category convertCaregoryShortDTOtoCategory(CategoryShortDTO categoryShortDTO) {
-        return modelMapper.map(categoryShortDTO, Category.class);
-    }
-
-    private Part convertPartDTOtoPart(PartDTO partDTO) {
-        return modelMapper.map(partDTO, Part.class);
-    }
-
     private Shop convertShopDTOtoShop(ShopDTO shopDTO) {
         return modelMapper.map(shopDTO, Shop.class);
     }
 
     private Manufacturer convertManufacturerDTOtoManufacturer(ManufacturerDTO manufacturerDTO) {
         return modelMapper.map(manufacturerDTO, Manufacturer.class);
-    }
-
-    private CategoryShortDTO convertCategoryShort(Category category) {
-        return modelMapper.map(category, CategoryShortDTO.class);
     }
 
     private PartDTO convertPart(Part part) {
@@ -168,13 +149,6 @@ public class GuestController {
 
     private ManufacturerDTO convertManufacturer(Manufacturer manufacturer) {
         return modelMapper.map(manufacturer, ManufacturerDTO.class);
-    }
-
-
-    // private UnitDTO convertUnit(Unit unit) { return  modelMapper.map(unit, UnitDTO.class);}
-
-    private Unit converter(UnitDTO unitDTO) {
-        return modelMapper.map(unitDTO, Unit.class);
     }
 
     private BrandDTO convertBrand(CommonEntity optional) {

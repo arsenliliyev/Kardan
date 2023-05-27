@@ -1,6 +1,6 @@
 package com.kardan.api.dto;
 
-import com.kardan.api.model.Category;
+
 import lombok.Data;
 
 import java.util.ArrayList;
