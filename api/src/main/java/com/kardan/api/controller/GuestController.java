@@ -121,28 +121,17 @@ public class GuestController {
 
     private Unit convertUnitDTOtoUnit(UnitDTO unitDTO) {
 
-
         PartDTO partDTO = unitDTO.getPartDTO();
 
-        int categoryId = partDTO.getCategoryId();
-        int engineId = partDTO.getEngineId();
-
-        Part part= partService.findPart(engineId,categoryId);
-
-        // CategoryShortDTO categoryShortDTO=partDTO.getCategoryShortDTO();
         ShopDTO shopDTO = unitDTO.getShopDTO();
-        //System.out.println(shopDTO);
+
         ManufacturerDTO manufacturerDTO = unitDTO.getManufacturerDTO();
 
         double price = unitDTO.getPrice();
 
         Unit unit = new Unit();
 
-        //  Unit unit=converter(unitDTO);
-
-     //   Part part = modelMapper.map(partDTO, Part.class);        //convertPartDTOtoPart(partDTO);
-        //  part.setCategory(convertCaregoryShortDTOtoCategory(categoryShortDTO));
-        unit.setPart(part);
+        unit.setPart(partService.findPart(partDTO.getCategoryId(), partDTO.getEngineId()));
         unit.setShop(convertShopDTOtoShop(shopDTO));
         unit.setManufacturer(convertManufacturerDTOtoManufacturer(manufacturerDTO));
         unit.setPrice(price);

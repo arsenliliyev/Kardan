@@ -12,7 +12,7 @@ public class CategoryDTO {
 
     private String name;
 
-    private Category parent;
+  //  private Category parent;
 
-    private List<Category> children = new ArrayList<Category>();
+    private List<CategoryDTO> children = new ArrayList<CategoryDTO>();
 }

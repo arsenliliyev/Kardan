@@ -21,13 +21,13 @@ public class PartService {
     }
 
 
-    public int findPartid(int category_id,int engine_id){
-        return partRepository.findPartByCategory_IdAndEngine_Id(category_id,engine_id).getId();
+    public int findPartid(int categoryId,int engineId){
+        return partRepository.findPartByCategory_IdAndEngine_Id(categoryId,engineId).getId();
     }
 
 
-    public Part findPart(int engineId,int categoryid){
-        return partRepository.findPartByCategory_IdAndEngine_Id(engineId,categoryid);
+    public Part findPart(int categoryId,int engineId){
+        return partRepository.findPartByCategory_IdAndEngine_Id(categoryId,engineId);
     }
 
 
